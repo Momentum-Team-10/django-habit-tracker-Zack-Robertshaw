@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load mathfilters %}
+
+
+{% block content %}
+
+{% load static %}
+
+
+
+<div class="columns">
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <h2 class="title"><a href="{% url 'home' %}">Back to Habits</a></h2>
+            </div>            
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <h2 class="title">Here's your goal towards {{ habit.name }}</h2>
+                <h2 class="subtitle">Your goal is:</h2>
+                <h1 class="title" id="goal">{{ habit.goal }} {{ habit.goal_unit }}</h1>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="column">
+        {% for record in records %}
+        <div class="card">
+            <div class="card-content" >
+                <h2 class="title">{{ record.date }}</h2>
+                <h2 class="title">You did {{ record.amount }} {{ habit.goal_unit }}</h2>
+            </div>
+            <div class="card-footer-item">
+                <!-- <a href="{% url 'delete_record' pk=record.pk %}">Delete Record</a>  -->
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <h2 class="title">Record todays progress for {{ habit.name }}</h2>
+                <form action="{% url 'habit_records' pk=habit.pk %}" method="POST">
+                {% csrf_token %}
+                <h2 class="subtitle">{{ form.as_p }}</h2>
+                <button type="submit">Submit Record</button>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <h3 class="title">You have done {{ total.amount__sum }} {{ habit.goal_unit }} so far! </h3>
+                
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <h3 class="title">You have got {{ habit.goal|sub:total.amount__sum }} {{ habit.goal_unit }} to go! </h3>
+                <!--Want to display message congrats message when goal <= amount  -->
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+<!-- <div>
+    {% for record in records %}
+    <p>Record: {{ record.amount }}</p> 
+    <p>Date Added: {{ record.date }}</p>
+    {% endfor %}
+</div> -->

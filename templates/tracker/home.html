@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+
+
+
+<div class="columns">
+    <div class="column">
+        <div class="card">
+            <h2 class="title">Make a New Habit</h3>
+            <form action="{% url 'home' %}" method="POST">
+            {% csrf_token %}
+            <h3 class="subtitle">{{ form.as_p }}</h3>
+            <button type="submit"> Create Habit</button>
+        </div>
+    </div>
+
+    <div class="column">
+        {% for habit in habits %}
+        <div class="card">
+            <div class="card-content">
+                <h2 class="title">Habit: {{ habit.name }}</h2>
+                <h3 class="subtitle">Goal: {{ habit.goal }}</h3>
+            </div>
+            <footer class="card-footer">
+                <div class="card-footer-item">
+                    <a href="{% url 'habit_records' pk=habit.pk %}">Habit Details</a>
+                </div>
+                <div class="card-footer-item">
+                    <a href="{% url 'delete_habit' pk=habit.pk %}">Delete Habit</a>
+ 
+                </div>
+
+            </footer>
+        </div>
+        {% endfor %}
+
+    </div>
+    <div class="column">3</div>
+
+</div>
+{% endblock %}
+<!-- <div>
+    <form action="{% url 'home' %}" method="POST">
+        <h3>Make a New Habit</h3>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"> Create Habit</button>
+    </div> -->
+    
+
+
+
+<!-- <div>
+    {% for habit in habits %}
+    <p>Habit: {{ habit.name }}</p> 
+    <p>Goal: {{ habit.goal }}</p>
+    <a href="{% url 'habit_records' pk=habit.pk %}">Habit Details</a>
+    <a href="{% url 'delete_habit' pk=habit.pk %}">Delete Habit</a>
+    {% endfor %}
+</div> -->
+
+

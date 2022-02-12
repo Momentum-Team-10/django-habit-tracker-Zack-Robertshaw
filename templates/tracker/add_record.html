@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+
+<h1 class="title">Record todays progress for {{ habit.name }}</h1>
+
+
+<form action="{% url 'add_record' pk=habit.pk %}" method="POST">
+    {% csrf_token %}
+    <h3 class="subtitle">{{ form.as_p }}</h3>
+    <button type="submit">Submit Record</button>
+    <a href="{% url 'home' %}">Cancel</a>
+    
+
+{% endblock %}
+<!-- {% for field in form %}
+<p>text</p>{{ field }}
+{% endfor %}
+<h3></h3> -->

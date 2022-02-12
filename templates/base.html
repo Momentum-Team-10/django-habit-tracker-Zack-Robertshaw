@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+
+</head>
+<body>
+
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title is=1">Habit Tracker</h1>
+        <h2 class="subtitle">Do something 7 times and it's a habit!</h2>
+        <div>
+          {% if request.user.is_authenticated %} 
+          <a href="/accounts/logout/">Logout</a> | <a href="{% url 'home' %}">Home</a>
+          {% else %} 
+          <a href="/accounts/login/">Login</a> | <a href="/accounts/register/">Register</a>
+          {% endif %}
+      </div>
+
+
+      </div>
+    </div>
+  </section>
+    <header>
+    </header>
+  <div>
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+</html>
